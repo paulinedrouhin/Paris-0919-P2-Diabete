@@ -63,7 +63,7 @@ class CarbCalculation extends React.Component {
         this.setState({ value: event.target.value });
     }
 
-    /* button validation */
+    /* validation button */
 
     handleClick = async () => {
         if (this.state.modifyingItem === false && this.state.name !== "") {
@@ -124,8 +124,6 @@ class CarbCalculation extends React.Component {
     }
 
     modifyItem = async (event, elem, index) => {
-        console.log(event.target);
-
         event.target.className += " carbCalculation-active"
 
         await this.setState({ modifyingItem: true })
@@ -134,13 +132,10 @@ class CarbCalculation extends React.Component {
         this.setState({ value: elem.dishWeight })
         this.setState({ carbRatio: elem.dishCarb })
         this.setState({ carb100g: elem.dishCarb100 })
-        console.log(this.state.name, this.state.carb100g, this.state.carbRatio, this.state.value);
     }
 
 
     render() {
-        console.log(this.state.modifyingItem);
-
         let carbRatio = (this.state.carb100g * this.state.value / 100).toFixed(2)
 
         const weight = this.state.value

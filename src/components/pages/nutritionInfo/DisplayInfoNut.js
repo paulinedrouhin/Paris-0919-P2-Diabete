@@ -19,14 +19,12 @@ class DisplayInfoNut extends React.Component {
 
   getInfoNut = () => {
     const foodId = this.props.match.params.origfdcd;
-    console.log("test props", foodId);
     axios
       .get(
         `https://plateforme.api-agro.fr/api/records/1.0/search/?dataset=tables-ciqual&rows=5&facet=origfdcd&q=${foodId}`
       )
       .then(response => response.data)
       .then(data => {
-        console.log("test API foodId", data) ||
           this.setState({ food: data.records, isLoaded: true });
       });
   };

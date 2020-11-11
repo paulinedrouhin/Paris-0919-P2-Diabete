@@ -14,7 +14,7 @@ class ApiRequest extends Component {
     getInfo = () => {
         axios.get(`https://plateforme.api-agro.fr/api/records/1.0/search/?dataset=tables-ciqual&rows=15&facet=origfdnm&q=${this.state.title}`)
       .then(response => response.data)
-      .then(data => { console.log(data) ||
+      .then(data => {
         this.setState({
             foods:data.records
         });
@@ -33,12 +33,10 @@ class ApiRequest extends Component {
     chooseFood= async (name) => {
         const item = await this.state.foods.find(element => 
            element.fields.origfdnm === name) 
-        await this.setState({chosenFood : item})
-        await this.setState({title: ""})
-        // console.log("verif", this.state.chosenFood)
+        this.setState({chosenFood : item})
+        this.setState({title: ""})
         this.props.name (this.state.chosenFood.fields.origfdnm)
         this.props.carbs (this.state.chosenFood.fields.glucides_g_100g)  
-        // console.log ("name",this.state.chosenFood.fields.origfdnm || "carbs", this.state.chosenFood.fields.glucides_g_100g)
     };
         
 
@@ -46,7 +44,6 @@ class ApiRequest extends Component {
 
 
     render () {
-        // console.log("verif2",this.state.chosenFood)
     return (
         <div>
             <form className="ApiRequest-form">

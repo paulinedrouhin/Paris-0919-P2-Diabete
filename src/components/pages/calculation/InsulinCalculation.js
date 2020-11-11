@@ -47,7 +47,6 @@ class InsulinCalculation extends Component {
   };
 
   render() {
-    console.log(this.state.hypo)
     return (
       <div className="insulinCalculationContainer">
         <div className="insulinCalculation-firstParamaters">

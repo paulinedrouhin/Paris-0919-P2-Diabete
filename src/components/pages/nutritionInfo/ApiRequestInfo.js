@@ -15,7 +15,7 @@ class ApiRequestInfo extends Component {
     getInfo = () => {
         axios.get(`https://plateforme.api-agro.fr/api/records/1.0/search/?dataset=tables-ciqual&rows=15&facet=origfdnm&q=${this.state.title}`)
       .then(response => response.data)
-      .then(data => { console.log(data) ||
+      .then(data => {
         this.setState({
             foods:data.records
         });

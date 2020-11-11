@@ -19,8 +19,6 @@ class ApiCarbs extends Component {
     }
 
 render () {
-    // console.log(this.state.nameFromApi)
-    // console.log(this.state.carbsFromApi)
     return(
     <div>
         <div className="nutriContent-searchBox">
