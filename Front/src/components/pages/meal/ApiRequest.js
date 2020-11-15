@@ -12,11 +12,11 @@ class ApiRequest extends Component {
     
 
     getInfo = () => {
-        axios.get(`https://plateforme.api-agro.fr/api/records/1.0/search/?dataset=tables-ciqual&rows=15&facet=origfdnm&q=${this.state.title}`)
+        axios.get(`http://localhost:4000/search?name=${this.state.title}`)
       .then(response => response.data)
       .then(data => {
         this.setState({
-            foods:data.records
+            foods:data
         });
     });
 }
@@ -32,11 +32,11 @@ class ApiRequest extends Component {
 
     chooseFood= async (name) => {
         const item = await this.state.foods.find(element => 
-           element.fields.origfdnm === name) 
+           element.name === name) 
         this.setState({chosenFood : item})
         this.setState({title: ""})
-        this.props.name (this.state.chosenFood.fields.origfdnm)
-        this.props.carbs (this.state.chosenFood.fields.glucides_g_100g)  
+        this.props.name (this.state.chosenFood.name)
+        this.props.carbs (this.state.chosenFood.carbohydrate)  
     };
         
 
@@ -65,7 +65,7 @@ class ApiRequest extends Component {
                      <ul id="food" className="ApiRequest-list" >
                     {this.state.foods
                         .map(food => (
-                        <li key={food.fields.origfdnm} className="ApiRequest-listItem" onClick={() => this.chooseFood(food.fields.origfdnm)}> {food.fields.origfdnm}
+                        <li key={food.name} className="ApiRequest-listItem" onClick={() => this.chooseFood(food.name)}> {food.name}
                         </li> 
                     ))}
                     </ul>

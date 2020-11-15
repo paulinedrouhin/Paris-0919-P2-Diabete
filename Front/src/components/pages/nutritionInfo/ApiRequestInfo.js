@@ -8,20 +8,18 @@ class ApiRequestInfo extends Component {
     state = {
         foods:[],
         title:""
-        // chosenFood: {}
     };
     
 
     getInfo = () => {
-        axios.get(`https://plateforme.api-agro.fr/api/records/1.0/search/?dataset=tables-ciqual&rows=15&facet=origfdnm&q=${this.state.title}`)
+        axios.get(`http://localhost:4000/search?name=${this.state.title}`)
       .then(response => response.data)
       .then(data => {
         this.setState({
-            foods:data.records
+            foods:data
         });
     });
 }
-
 
     handleChange= (event)=> {
         this.setState({ title: event.target.value });
@@ -31,7 +29,6 @@ class ApiRequestInfo extends Component {
         };
 
     render () {
-       
     return (
         <div>
             <form className="ApiRequestInfo-form">
@@ -52,7 +49,7 @@ class ApiRequestInfo extends Component {
                      <ul id="food" className="ApiRequestInfo-list" >
                     {this.state.foods
                         .map(food => (
-                            <Link className="ApiRequestInfo-link" to={`/displayinfonut/${food.fields.origfdcd}`}><li key={food.fields.origfdnm} className="ApiRequestInfo-listItem" > {food.fields.origfdnm}</li> </Link>
+                            <Link className="ApiRequestInfo-link" to={`/displayinfonut/${food.id}`}><li key={food.name} className="ApiRequestInfo-listItem" > {food.name}</li> </Link>
                     ))}
                     </ul>
                     : ""
