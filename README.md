@@ -55,9 +55,11 @@ $ docker exec -it mysqldb mysql -u root -p
 
 **MySQL Database initialization** <br />
 Run the Back/add-food-script.SQL in MySQL
+```
 
 **Project connexion to database** <br />
 To connect the project to our database, you need to create a .env file at the root of the project that contains: <br />
+
 ```
 DB_HOST=localhost
 DB_USER=root
@@ -68,8 +70,11 @@ DB_DB=alsid
 #### Development
 
 ```bash
-Front/npm start
-Back/npm start
+cd Front
+npm start
+
+cd Back
+npm start
 ```
 
 #### Production
