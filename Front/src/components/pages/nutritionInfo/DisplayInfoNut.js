@@ -18,14 +18,14 @@ class DisplayInfoNut extends React.Component {
   };
 
   getInfoNut = () => {
-    const foodId = this.props.match.params.origfdcd;
+    const foodId = this.props.match.params.id;
     axios
       .get(
-        `https://plateforme.api-agro.fr/api/records/1.0/search/?dataset=tables-ciqual&rows=5&facet=origfdcd&q=${foodId}`
+        `http://localhost:4000/food/${foodId}`
       )
       .then(response => response.data)
       .then(data => {
-          this.setState({ food: data.records, isLoaded: true });
+          this.setState({ food: data, isLoaded: true });
       });
   };
 
@@ -44,25 +44,24 @@ class DisplayInfoNut extends React.Component {
               src={icon}
               content={
                 <NutriTable
-                  name={this.state.food[0].fields.origfdnm}
+                  name={this.state.food.name}
                   energie={
-                    this.state.food[0].fields
-                      .energie_n_x_facteur_jones_avec_fibres_kcal_100g
+                    13
                   }
-                  glucides={this.state.food[0].fields.glucides_g_100g}
-                  sucres={this.state.food[0].fields.sucres_g_100g}
-                  proteines={this.state.food[0].fields.proteines_g_100g}
-                  lipides={this.state.food[0].fields.lipides_g_100g}
-                  sel={this.state.food[0].fields.sel_chlorure_de_sodium_g_100g}
-                  fibres={this.state.food[0].fields.fibres_alimentaires_g_100g}
-                  vitamineE={this.state.food[0].fields.vitamine_e_mg_100g}
-                  vitamineD={this.state.food[0].fields.vitamine_d_ug_100g}
-                  vitamineC={this.state.food[0].fields.vitamine_c_mg_100g}
-                  vitamineB2={this.state.food[0].fields.vitamine_b2_ou_riboflavine_mg_100g}
-                  vitamineB1={this.state.food[0].fields.vitamine_b1_ou_thiamine_mg_100g}
-                  calcium={this.state.food[0].fields.calcium_mg_100g}
-                  magnesium={this.state.food[0].fields.magnesium_mg_100g}
-                  fer={this.state.food[0].fields.fer_mg_100g}
+                  glucides={this.state.food.carbohydrate}
+                  sucres={this.state.food.sugar}
+                  proteines={15}
+                  lipides={this.state.food.lipid}
+                  sel={0.4}
+                  fibres={this.state.food.fibre}
+                  vitamineE={this.state.food.vitaminE}
+                  vitamineD={this.state.food.vitaminD}
+                  vitamineC={this.state.food.vitaminC}
+                  vitamineB2={this.state.food.vitaminB2}
+                  vitamineB1={this.state.food.vitaminB1}
+                  calcium={this.state.food.calcium}
+                  magnesium={this.state.food.magnesium}
+                  fer={this.state.food.iron}
                 />
               }
             />

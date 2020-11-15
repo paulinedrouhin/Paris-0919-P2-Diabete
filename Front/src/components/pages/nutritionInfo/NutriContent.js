@@ -8,20 +8,25 @@ import drink from "../../../assets/icons/picto-drink.svg";
 import junkFood from "../../../assets/icons/picto-junkFood.svg";
 import meatAndFish from "../../../assets/icons/picto-meatAndFish.svg";
 import dessert from "../../../assets/icons/picto-dessert.svg";
+import axios from 'axios';
+
 
 class NutriContent extends React.Component {
   state = {
-    category1: "null",
-    category2: "null"
+    foodsFromCategory: []
   };
 
-  changeProps = (item1, item2) => {
-    this.setState({ category1: item1 });
-    this.setState({ category2: item2 });
-    this.scrollTo()
+  getFoodFromCategory = async(category) => {
+    const data = await axios.get(`http://localhost:4000/food/category/${category}`)
+    const sortedData = this.sortData(data.data)
+    this.setState({ loading : false, foodsFromCategory : sortedData})
+  } 
+   
+  sortData = (foodCategory) => {
+    const sortedFoodByCategory = foodCategory.sort((a , b) => {
+      return a.name.localeCompare(b.name)})
+    return sortedFoodByCategory
   };
-
-
 
   scrollTo = () => {
     setTimeout(() => {
@@ -40,37 +45,37 @@ class NutriContent extends React.Component {
         </div>
         <div className="nutriContent-sixBoxes">
           <div className="fruitAndVeg"
-            onClick={() => this.changeProps("fruit", "legume")}>
+            onClick={() => this.getFoodFromCategory("fruit")}>
             <div className="Box-Border"></div>
             <img className = "nutriContent-Icon" src={fruitAndVeg}/> 
             <h2 className="nutriContent-CatName">Fruits et Légumes</h2>
           </div>
           <div className="meatAndFish"
-            onClick={() => this.changeProps("viande", "poisson")}>
+            onClick={() => this.getFoodFromCategory("viande")}>
             <div className="Box-Border"></div>
             <h2 className="nutriContent-CatName">Viandes et Poissons</h2>
             <img className = "nutriContent-Icon" src={meatAndFish}/>
           </div>
           <div className="drink"
-            onClick={() => this.changeProps("boisson", "alcool")}>
+            onClick={() => this.getFoodFromCategory("boisson")}>
             <div className="Box-Border"></div>
             <h2 className="nutriContent-CatName">Boissons</h2>
             <img className = "nutriContent-Icon" src={drink}/>
           </div>
           <div className="starchy"
-            onClick={() => this.changeProps("riz", "terre")}>
+            onClick={() => this.getFoodFromCategory("terre")}>
             <div className="Box-Border"></div>
             <h2 className="nutriContent-CatName">Féculents</h2>
             <img className = "nutriContent-Icon" src={starchy}/>
           </div>
           <div className="junkFood"
-            onClick={() => this.changeProps("pizza", "bonbon")}>
+            onClick={() => this.getFoodFromCategory("junkfood")}>
             <div className="Box-Border"></div>
             <h2 className="nutriContent-CatName">Junk Food</h2>
             <img className = "nutriContent-Icon" src={junkFood}/>
           </div>
           <div className="dessert"
-          onClick={() => this.changeProps("chocolat", "gateau")}>
+          onClick={() => this.getFoodFromCategory("dessert")}>
             <div className="Box-Border"></div>
             <h2 className="nutriContent-CatName">Desserts</h2>
             <img className = "nutriContent-Icon" src={dessert}/>
@@ -78,8 +83,7 @@ class NutriContent extends React.Component {
         </div>
 
         <InfoNutApi id="food-box"
-          firstFood={this.state.category1}
-          food2={this.state.category2}
+          chosenCategory={this.state.foodsFromCategory}
         />
       </div>
     );

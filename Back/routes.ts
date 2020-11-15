@@ -19,7 +19,7 @@ router.get('/food/:id', (req:Request, res:Response) => {
     try {
         const id = req.params.id
         connection.query(`SELECT * FROM food WHERE id = ${id}`, (err, result) => {
-        res.status(200).json(result)
+        result ? res.status(200).json(result[0]) : res.status(400)
         })
     } catch (err) {
         res.status(500)
